@@ -1,0 +1,14 @@
+{
+  "ID": "5eb3a12f0bc94937a03b34b75d53fcb1",
+  "Disabled": false,
+  "ActionKeyword": "$$",
+  "Name": "Currency Converter",
+  "Author": "nathancartlidge",
+  "Version": "1.0.0",
+  "Language": "csharp",
+  "Website": "https://github.com/nathancartlidge/powertoys-run-currency",
+  "ExecuteFileName": "Community.PowerToys.Run.Plugin.CurrencyConverter.dll",
+  "IsGlobal": true,
+  "IcoPathDark": "images\\currency.dark.png",
+  "IcoPathLight": "images\\currency.light.png"
+}
