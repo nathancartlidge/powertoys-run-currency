@@ -5,13 +5,14 @@ namespace Community.PowerToys.Run.Plugin.CurrencyConverter;
 
 public class Matcher
 {
-    public static (float?, string?, string?) Match(string query)
+    public static (double?, string?, string?) Match(string query)
     {
         var parts = query.Split(" ");
         try
         {
-            var value = float.Parse(parts[0]);
-            var currencyFrom = parts[1];
+            // todo: region-agnostic numbering
+            var value = double.Parse(parts[0].Replace(",", ""));
+            var currencyFrom = parts[1].ToUpper();
             if (currencyFrom.Length != 3)
             {
                 return (null, null, null);
@@ -25,12 +26,7 @@ public class Matcher
                 return (value, currencyFrom, parts[3]);
             }
 
-            if (thirdWord.Length == 3)
-            {
-                return (value, currencyFrom, parts[2]);
-            }
-
-            return (value, currencyFrom, null);
+            return thirdWord.Length == 3 ? (value, currencyFrom, parts[2]) : (value, currencyFrom, null);
         }
         catch (FormatException)
         {

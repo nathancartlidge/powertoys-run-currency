@@ -13,7 +13,7 @@ public class MatcherTest
     {
         Console.WriteLine("Testing a basic match");
         var (v, f, t) = Matcher.Match("100 USD to GBP");
-        Assert.AreEqual(v, 100.0F);
+        Assert.AreEqual(v, 100.0);
         Assert.AreEqual(f, "USD");
         Assert.AreEqual(t, "GBP");
         
@@ -25,7 +25,7 @@ public class MatcherTest
         
         Console.WriteLine("Testing a partially valid match");
         (v, f, t) = Matcher.Match("75.24 USD to");
-        Assert.AreEqual(v, 75.24F);
+        Assert.AreEqual(v, 75.24);
         Assert.AreEqual(f, "USD");
         Assert.AreEqual(t, null);
     }

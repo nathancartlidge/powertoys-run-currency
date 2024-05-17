@@ -39,23 +39,48 @@ public partial class Main : IPlugin, IContextMenu
     private List<Result> Query(string query)
     {
         var (value, currencyFrom, currencyTo) = Matcher.Match(query);
-        if (value == null || currencyFrom == null)
+        if (value == null || currencyFrom == null || value <= 0)
         {
             return [];
         }
 
-        var valueString = value.GetValueOrDefault(0F).ToString("c2");
+        var currencyAmount = value.GetValueOrDefault(0);
+        if (currencyAmount == 0) { return []; }
+        currencyTo ??= "GBP";
+
+        var finalPrice = Api.GetCurrency(currencyAmount, currencyFrom, currencyTo);
+        if (finalPrice == null)
+        {
+            return
+            [
+                new Result
+                {
+                    Title = $"Error when converting between {currencyFrom} and {currencyTo}",
+                    IcoPath = IconPath,
+                    Score = 1,
+                    ContextData = value,
+                }
+            ];
+        }
+
+        var convertedAmount = finalPrice.GetValueOrDefault(0F);
         
         var titleStringBuilder = new StringBuilder();
-        titleStringBuilder.Append(valueString);
+        titleStringBuilder.Append(currencyAmount.ToString("n2"));
         titleStringBuilder.Append(' ');
         titleStringBuilder.Append(currencyFrom);
-        titleStringBuilder.Append(" to ");
+        titleStringBuilder.Append(" \u2192 ");
+        titleStringBuilder.Append(convertedAmount.ToString("n2"));
+        titleStringBuilder.Append(' ');
         titleStringBuilder.Append(currencyTo);
         
         var subtitleStringBuilder = new StringBuilder();
-        subtitleStringBuilder.Append("\u2192 ");
-        subtitleStringBuilder.Append(valueString);
+        subtitleStringBuilder.Append("1 ");
+        subtitleStringBuilder.Append(currencyFrom);
+        subtitleStringBuilder.Append(" \u2192 ");
+        subtitleStringBuilder.Append((convertedAmount / currencyAmount).ToString("n3"));
+        subtitleStringBuilder.Append(' ');
+        subtitleStringBuilder.Append(currencyTo);
         
         return [
             new Result
@@ -66,7 +91,7 @@ public partial class Main : IPlugin, IContextMenu
                 Score = 1,
                 Action = _ =>
                 {
-                    Clipboard.SetText(valueString);
+                    Clipboard.SetText(convertedAmount.ToString("n2"));
                     return true;
                 },
                 ContextData = value,
