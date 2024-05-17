@@ -4,6 +4,6 @@
 	<s:Boolean x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/ShowAdvancedOptions/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=39d82760_002Df1f8_002D4dd0_002Db06f_002D498127aff0ac/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TextExact" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;MSTest::bd91e8f1-2ff1-4a4b-80de-57cc7793f73f::net8.0-windows::Community.PowerToys.Run.Plugin.CurrencyConverter.Tests.HtmlLookupTest.TestNumber&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::BD91E8F1-2FF1-4A4B-80DE-57CC7793F73F::net8.0-windows::Community.PowerToys.Run.Plugin.CurrencyConverter.Tests.MatcherTest.TestMatcher&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

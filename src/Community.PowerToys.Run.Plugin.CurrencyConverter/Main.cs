@@ -12,7 +12,6 @@ public partial class Main : IPlugin, IContextMenu
     private string IconPath { get; set; }
 
     private readonly Api _api = new();
-    private readonly Matcher _matcher = new();
 
     private PluginInitContext Context { get; set; }
     public string Name => "Currency Converter";
@@ -39,14 +38,24 @@ public partial class Main : IPlugin, IContextMenu
         
     private List<Result> Query(string query)
     {
-        var value = 0.7F;
+        var (value, currencyFrom, currencyTo) = Matcher.Match(query);
+        if (value == null || currencyFrom == null)
+        {
+            return [];
+        }
+
+        var valueString = value.GetValueOrDefault(0F).ToString("c2");
         
         var titleStringBuilder = new StringBuilder();
-        titleStringBuilder.Append("Query: ");
-        titleStringBuilder.Append(query);
+        titleStringBuilder.Append(valueString);
+        titleStringBuilder.Append(' ');
+        titleStringBuilder.Append(currencyFrom);
+        titleStringBuilder.Append(" to ");
+        titleStringBuilder.Append(currencyTo);
         
         var subtitleStringBuilder = new StringBuilder();
-        subtitleStringBuilder.Append(value.ToString("c2"));
+        subtitleStringBuilder.Append("\u2192 ");
+        subtitleStringBuilder.Append(valueString);
         
         return [
             new Result
@@ -57,7 +66,7 @@ public partial class Main : IPlugin, IContextMenu
                 Score = 1,
                 Action = _ =>
                 {
-                    Clipboard.SetText(value.ToString("c2"));
+                    Clipboard.SetText(valueString);
                     return true;
                 },
                 ContextData = value,
