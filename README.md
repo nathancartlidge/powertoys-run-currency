@@ -1,5 +1,5 @@
 # Currency Converter for PowerToys Run
-![Build Pipeline](https://github.com/nathancartlidge/powertoys-run-unicode/actions/workflows/build.yml/badge.svg)
+![Build Pipeline](https://github.com/nathancartlidge/powertoys-run-currency/actions/workflows/build.yml/badge.svg)
 
 ## Introduction
 **TLDR:** this plugin lets you type `100 GBP to USD` and get the live price
